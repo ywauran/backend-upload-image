@@ -1,0 +1,21 @@
+GET http://localhost:5000/menus
+
+###
+
+GET http://localhost:5000/menu/1
+
+###
+POST http://localhost:5000/menu
+Content-Type: application/json
+
+{
+    "name": "drink"
+}
+
+###
+POST http://localhost:5000/menu
+Content-Type: application/json
+
+{
+    "name": "food"
+}
