@@ -3,6 +3,7 @@ import path from "path";
 import fs from "fs";
 
 export const getProducts = async (req, res) => {
+  // SELECT * FROM product
   try {
     const response = await Product.findAll();
     res.json(response);
@@ -12,6 +13,7 @@ export const getProducts = async (req, res) => {
 };
 
 export const getProductById = async (req, res) => {
+  // SELECT * FROM product WHER id = ?
   try {
     const response = await Product.findOne({
       where: {
@@ -25,6 +27,7 @@ export const getProductById = async (req, res) => {
 };
 
 export const createProduct = (req, res) => {
+  // INSERT INTO product VALUES (...)
   if (req.files === null)
     return res.status(400).json({ msg: "No File Uploaded" });
   const { name, price, menuId } = req.body;
@@ -58,6 +61,7 @@ export const createProduct = (req, res) => {
 };
 
 export const updateProduct = async (req, res) => {
+  // UPDATE product SET (...) WHERE id = ?
   const product = await Product.findOne({
     where: {
       id: req.params.id,
@@ -106,6 +110,7 @@ export const updateProduct = async (req, res) => {
 };
 
 export const deleteProduct = async (req, res) => {
+  // DELETE FROM product WHERE id = ?
   const product = await Product.findOne({
     where: {
       id: req.params.id,
@@ -124,5 +129,31 @@ export const deleteProduct = async (req, res) => {
     res.status(200).json({ msg: "Product Deleted Successfuly" });
   } catch (error) {
     console.log(error.message);
+  }
+};
+
+export const getFood = async (req, res) => {
+  try {
+    const response = await Product.findAll({
+      where: {
+        menuId: 2,
+      },
+    });
+    res.status(200).json(response);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getDrink = async (req, res) => {
+  try {
+    const response = await Product.findAll({
+      where: {
+        menuId: 1,
+      },
+    });
+    res.status(200).json(response);
+  } catch (error) {
+    console.log(error);
   }
 };
